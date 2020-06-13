@@ -1,10 +1,21 @@
-import unittest
+import sys
 
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)
+def portfolio_cost(filename):
+    value = 0
+    with open(filename, 'rt') as f:
+        headers = next(f).split(',')
+        for line in f:
+            row = line.split(',')
+            value += int(row[1]) * float(row[2])
+    print('Total cost:', value)
 
 
-if __name__ == '__main__':
-    unittest.main()
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = 'Data/portfolio.csv'
+cost = portfolio_cost(filename)
+print('Total cost:', cost)
+
+portfolio_cost('Data/portfolio.csv')
